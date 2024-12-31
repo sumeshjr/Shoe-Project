@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update User</title>
+</head>
+<body>
+    <h1>Update User - {{ user.username }}</h1>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+        <label for="username">Username:</label>
+        <input type="text" name="username" value="{{ user.username }}" required>
+
+        <label for="email">Email:</label>
+        <input type="email" name="email" value="{{ user.email }}" required>
+
+        <label for="role">Role:</label>
+        <select name="role">
+            <option value="admin" {% if user.role == 'admin' %}selected{% endif %}>Admin</option>
+            <option value="supplier" {% if user.role == 'supplier' %}selected{% endif %}>Supplier</option>
+            <option value="user" {% if user.role == 'user' %}selected{% endif %}>User</option>
+        </select>
+        <button type="submit">Update</button>
+    </form>
+
+    <a href="{% url 'view_all_users' %}">Back to Users</a>
+</body>
+</html>

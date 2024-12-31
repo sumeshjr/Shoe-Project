@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>All Suppliers</title>
+  </head>
+  <body>
+    <h1>All Suppliers</h1>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Company Name</th>
+          <th>Contact Info</th>
+          <th>Supplier Name</th>
+          <th>Supplier Email</th>
+          <th>Supplier Approved</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for supplier in suppliers %}
+        <tr>
+          <td>{{ supplier.company_name }}</td>
+          <td>{{ supplier.contact_info }}</td>
+          <td>{{ supplier.user.username }}</td>
+          <!-- Displaying Supplier's Username -->
+          <td>{{ supplier.user.email }}</td>
+          <!-- Displaying Supplier's Email -->
+          <td>{{ supplier.user.is_approved|yesno:"Approved,Not Approved" }}</td>
+          <td>
+            {% if not supplier.user.is_approved %}
+            <a href="{% url 'approve_supplier' supplier.id %}">
+              <button>Approve</button>
+            </a>
+            {% endif %}
+            <a href="{% url 'update_supplier' supplier.id %}">
+              <button>Update</button>
+            </a>
+            <a href="{% url 'delete_supplier' supplier.id %}">
+              <button>Delete</button>
+            </a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </body>
+</html>

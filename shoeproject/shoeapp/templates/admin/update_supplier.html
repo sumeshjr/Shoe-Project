@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Update Supplier</title>
+  </head>
+  <body>
+    <h1>Update Supplier - {{ supplier.company_name }}</h1>
+
+    {% if messages %} {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+    {% endfor %} {% endif %}
+
+    <form method="POST">
+      {% csrf_token %}
+      <label for="company_name">Company Name:</label>
+      <input
+        type="text"
+        name="company_name"
+        value="{{ supplier.company_name }}"
+        required
+      />
+
+      <label for="contact_info">Contact Info:</label>
+      <textarea name="contact_info" required>
+{{ supplier.contact_info }}</textarea
+      >
+
+      <button type="submit">Update</button>
+    </form>
+
+    <a href="{% url 'view_all_suppliers' %}">Back to Suppliers</a>
+  </body>
+</html>

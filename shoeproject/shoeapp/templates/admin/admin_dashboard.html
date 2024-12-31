@@ -13,19 +13,13 @@
     {% endfor %} {% endif %}
 
     <div>
-      <h2>Overview</h2>
-      <p>Welcome, Admin! Here are your system statistics:</p>
-      <ul>
-        <li>Total Users: {{ total_users }}</li>
-        <li>Total Suppliers: {{ total_suppliers }}</li>
-        <li>Total Orders: {{ total_orders }}</li>
-        <!-- Add other statistics as needed -->
-      </ul>
-    </div>
-
-    <div>
       <h2>Manage Users</h2>
-      <p><a href="#">View All Users</a></p>
+      <a href="{% url 'view_all_users' %}">
+        <button>View All Users</button>
+      </a>
+      <a href="{% url 'view_all_suppliers' %}">
+        <button>View All Suppliers</button>
+      </a>
       <p><a href="#">Add New User</a></p>
     </div>
 

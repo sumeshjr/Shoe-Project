@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>All Users</title>
+  </head>
+  <body>
+    <h1>All Users</h1>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Approved</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for user in users %}
+        <tr>
+          <td>{{ user.username }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.role }}</td>
+          <td>{{ user.is_approved|yesno:"Approved,Not Approved" }}</td>
+          <td>
+            {% if not user.is_approved %}
+            <a href="{% url 'approve_user' user.id %}">
+              <button>Approve</button>
+            </a>
+            {% endif %}
+            <a href="{% url 'update_user' user.id %}">
+              <button>Update</button>
+            </a>
+            <a href="{% url 'delete_user' user.id %}">
+              <button>Delete</button>
+            </a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </body>
+</html>

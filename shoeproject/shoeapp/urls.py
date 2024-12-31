@@ -17,6 +17,13 @@ urlpatterns = [
 
     # Admin
     path('admin_dashboard/', admin_dashboard, name='admin_dashboard'),
-   
+    path('approve_user/<int:user_id>/', approve_user, name='approve_user'),
+    path('approve_supplier/<int:supplier_id>/', approve_supplier, name='approve_supplier'),
+    path('view_all_users/', view_all_users, name='view_all_users'),
+    path('view_all_suppliers/', view_all_suppliers, name='view_all_suppliers'),
+    path('update_user/<int:user_id>/', update_user, name='update_user'),
+    path('update_supplier/<int:supplier_id>/', update_supplier, name='update_supplier'),
+    path('delete_user/<int:user_id>/', delete_user, name='delete_user'),
+    path('delete_supplier/<int:supplier_id>/', delete_supplier, name='delete_supplier'),
     
 ]
