@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Dashboard</title>
+  </head>
+  <body>
+    <h1>User Dashboard</h1>
+
+    {% if messages %} {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+    {% endfor %} {% endif %}
+
+    <div>
+      <h2>Your Orders</h2>
+      <p><a href="#">View Your Orders</a></p>
+      <p><a href="#">Track Order Status</a></p>
+    </div>
+
+    <div>
+      <h2>Your Account</h2>
+      <p><a href="#">Update Personal Information</a></p>
+      <p><a href="#">Change Password</a></p>
+    </div>
+
+    <div>
+      <h2>Support</h2>
+      <p><a href="#">Contact Support</a></p>
+    </div>
+
+    <p><a href="{% url 'home' %}">Back to Home</a></p>
+  </body>
+</html>

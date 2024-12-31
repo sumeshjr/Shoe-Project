@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Supplier Dashboard</title>
+  </head>
+  <body>
+    <h1>Supplier Dashboard</h1>
+
+    {% if messages %} {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+    {% endfor %} {% endif %}
+
+    <div>
+      <h2>Your Orders</h2>
+      <p><a href="#">View Pending Orders</a></p>
+      <p><a href="#">View Completed Orders</a></p>
+    </div>
+
+    <div>
+      <h2>Your Payments</h2>
+      <p><a href="#">View Payment History</a></p>
+      <p><a href="#">Make a Payment</a></p>
+    </div>
+
+    <div>
+      <h2>Inventory</h2>
+      <p><a href="#">View Inventory</a></p>
+      <p><a href="#">Update Inventory</a></p>
+    </div>
+
+    <p><a href="{% url 'home' %}">Back to Home</a></p>
+  </body>
+</html>
