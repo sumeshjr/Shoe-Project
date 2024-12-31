@@ -6,7 +6,15 @@ urlpatterns = [
     path('', home,name='home'),  
     # Supplier
     path('register_supplier/', register_supplier, name='register_supplier'),
-     path('supplier_dashboard/', supplier_dashboard, name='supplier_dashboard'),
+    path('supplier_dashboard/', supplier_dashboard, name='supplier_dashboard'),
+    path('add-category/', add_category, name='add_category'),
+    path('update-category/<int:category_id>/', update_category, name='update_category'),
+    path('delete-category/<int:category_id>/', delete_category, name='delete_category'),
+    path('add-product/', add_product, name='add_product'),
+    path('update-product/<int:product_id>/', update_product, name='update_product'),
+    path('delete-product/<int:product_id>/', delete_product, name='delete_product'),
+    path('view-categories/', view_all_categories, name='view_all_categories'),
+    path('view-products/', view_all_products, name='view_all_products'),
 
     # User
     path('register_user/', register_user, name='register_user'),

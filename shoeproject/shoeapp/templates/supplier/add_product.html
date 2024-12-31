@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add Product</title>
+  </head>
+  <body>
+    <h1>Add New Product</h1>
+    <form method="POST">
+      {% csrf_token %}
+      <label for="product_name">Product Name:</label>
+      <input type="text" name="product_name" id="product_name" required />
+      <br />
+      <label for="category">Category:</label>
+      <select name="category" id="category" required>
+        {% for category in categories %}
+        <option value="{{ category.id }}">{{ category.name }}</option>
+        {% endfor %}
+      </select>
+      <br />
+      <label for="description">Description:</label>
+      <textarea name="description" id="description"></textarea>
+      <br />
+      <label for="price">Price:</label>
+      <input type="number" name="price" id="price" required />
+      <br />
+      <label for="stock">Stock:</label>
+      <input type="number" name="stock" id="stock" required />
+      <br />
+      <button type="submit">Add Product</button>
+    </form>
+    <p><a href="{% url 'view_all_products' %}">Back to Products</a></p>
+  </body>
+</html>

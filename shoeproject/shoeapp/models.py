@@ -26,13 +26,14 @@ class User(AbstractUser):
     )
 
 
-# Product Category Model
 class ProductCategory(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True, null=True)
+    supplier = models.ForeignKey('Supplier', on_delete=models.CASCADE)  # Link to Supplier
     
     def __str__(self):
         return self.name
+
 
 # Product Model
 class Product(models.Model):

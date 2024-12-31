@@ -137,6 +137,114 @@ def delete_supplier(request, supplier_id):
 def supplier_dashboard(request):
     return render(request, 'supplier/supplier_dashboard.html')
 
+def add_category(request):
+    if request.method == 'POST':
+        category_name = request.POST.get('category_name')
+        category_description = request.POST.get('category_description', '')
+
+        if category_name:
+            try:
+                # Get the supplier associated with the logged-in user
+                supplier = request.user.supplier  
+
+                # Create the new category for the logged-in supplier
+                ProductCategory.objects.create(
+                    name=category_name,
+                    description=category_description,
+                    supplier=supplier
+                )
+                messages.success(request, 'Category added successfully!')
+                return redirect('view_all_categories')  # Redirect to the page displaying all categories
+            except Supplier.DoesNotExist:
+                # Handle the case where the user is not associated with a supplier
+                messages.error(request, 'You must be a supplier to add categories.')
+                return redirect('supplier_dashboard')  # Redirect to the supplier dashboard or another appropriate page
+        else:
+            messages.error(request, 'Category name is required!')
+
+    return render(request, 'supplier/add_category.html')
+
+# Update Category for Supplier
+def update_category(request, category_id):
+    category = get_object_or_404(ProductCategory, id=category_id)
+    if request.method == 'POST':
+        category.name = request.POST.get('category_name', category.name)
+        category.description = request.POST.get('category_description', category.description)
+        category.save()
+        messages.success(request, 'Category updated successfully!')
+        return redirect('view_all_categories')  # Redirect to the page displaying all categories
+    return render(request, 'supplier/update_category.html', {'category': category})
+
+# Delete Category for Supplier
+def delete_category(request, category_id):
+    category = get_object_or_404(ProductCategory, id=category_id)
+    category.delete()
+    messages.success(request, 'Category deleted successfully!')
+    return redirect('view_all_categories')  # Redirect to the page displaying all categories
+
+# Add Product for Supplier
+def add_product(request):
+    if request.method == 'POST':
+        product_name = request.POST.get('product_name')
+        product_category_id = request.POST.get('category')
+        product_description = request.POST.get('description', '')
+        product_price = request.POST.get('price')
+        product_stock = request.POST.get('stock')
+        supplier = request.user.supplier  # Get the supplier from the logged-in user
+        
+        if product_name and product_price and product_stock:
+            category = get_object_or_404(ProductCategory, id=product_category_id)
+            Product.objects.create(
+                name=product_name,
+                category=category,
+                description=product_description,
+                price=product_price,
+                stock=product_stock,
+                supplier=supplier
+            )
+            messages.success(request, 'Product added successfully!')
+            return redirect('view_all_products')  # Redirect to the page displaying all products
+        else:
+            messages.error(request, 'Product name, price, and stock are required!')
+    categories = ProductCategory.objects.all()
+    return render(request, 'supplier/add_product.html', {'categories': categories})
+
+# Update Product for Supplier
+def update_product(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    if request.method == 'POST':
+        product.name = request.POST.get('product_name', product.name)
+        product.category = get_object_or_404(ProductCategory, id=request.POST.get('category', product.category.id))
+        product.description = request.POST.get('description', product.description)
+        product.price = request.POST.get('price', product.price)
+        product.stock = request.POST.get('stock', product.stock)
+        product.save()
+        messages.success(request, 'Product updated successfully!')
+        return redirect('view_all_products')  # Redirect to the page displaying all products
+    categories = ProductCategory.objects.all()
+    return render(request, 'supplier/update_product.html', {'product': product, 'categories': categories})
+
+# Delete Product for Supplier
+def delete_product(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    product.delete()
+    messages.success(request, 'Product deleted successfully!')
+    return redirect('view_all_products')  # Redirect to the page displaying all products
+
+def view_all_categories(request):
+    # Filter categories by the logged-in supplier
+    supplier = request.user.supplier
+    categories = ProductCategory.objects.filter(supplier=supplier)
+    return render(request, 'supplier/view_all_categories.html', {'categories': categories})
+
+# View all products added by the supplier
+def view_all_products(request):
+    # Filter products by the logged-in supplier
+    supplier = request.user.supplier
+    products = Product.objects.filter(supplier=supplier)
+    return render(request, 'supplier/view_all_products.html', {'products': products})
+
+
 #______________________________________________________________________________________________________________#
 
 # User Dashboard

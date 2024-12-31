@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>View Categories</title>
+  </head>
+  <body>
+    <h1>All Categories</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Category Name</th>
+          <th>Description</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for category in categories %}
+        <tr>
+          <td>{{ category.name }}</td>
+          <td>{{ category.description }}</td>
+          <td>
+            <a href="{% url 'update_category' category.id %}">
+              <button>Update</button>
+            </a>
+            <a href="{% url 'delete_category' category.id %}">
+              <button>Delete</button>
+            </a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <a href="{% url 'add_category' %}"><button>Add New Category</button></a>
+  </body>
+</html>
