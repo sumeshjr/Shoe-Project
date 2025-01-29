@@ -15,6 +15,8 @@ urlpatterns = [
     path('add-to-cart/', add_to_cart, name='add_to_cart'),
     path('remove-from-cart/', remove_from_cart, name='remove_from_cart'),
     path('search/', search_view, name='search'),
+    path('update_supplier_profile/', update_supplier_profile, name='update_supplier_profile'),
+    path('supplier_profile/', supplier_profile, name='supplier_profile'),
 
     # User
     path('register_user/', register_user, name='register_user'),
@@ -22,8 +24,8 @@ urlpatterns = [
     path('cart/', view_cart, name='view_cart'),
     path('categories/', view_categories, name='view_categories'),
     path('category/<int:category_id>/', view_products_by_category, name='view_products_by_category'),
-        path('update_profile/', update_profile, name='update_profile'),
-     path('view_profile/', view_profile, name='view_profile'),
+    path('update_profile/', update_profile, name='update_profile'),
+    path('view_profile/', view_profile, name='view_profile'),
 
 
     # Common

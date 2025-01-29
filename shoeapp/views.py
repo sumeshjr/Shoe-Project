@@ -157,6 +157,33 @@ def view_profile(request):
     # Render the profile page with user details
     return render(request, 'user/view_profile.html', {'user': user})
 
+def supplier_profile(request):
+    # Get the current user's details
+    user = request.user
+
+    # Render the profile page with user details
+    return render(request, 'supplier/view_profile.html', {'user': user})
+
+def update_supplier_profile(request):
+    # Get the current user's details
+    user = request.user
+
+    if request.method == 'POST':
+        # Get the updated data from the POST request
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        # Update user attributes
+        user.username = username
+        user.email = email
+        user.save()
+
+        # Show a success message
+        messages.success(request, "Profile updated successfully!")
+        return redirect('update_profile')  # Redirect to the same page after update
+
+    return render(request, 'supplier/update_profile.html', {'user': user})
+
+
 def update_profile(request):
     # Get the current user's details
     user = request.user
